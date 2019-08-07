@@ -27,36 +27,47 @@ class ViewController: UIViewController {
         // resultTextViewを編集不可能にする
         resultTextView.isEditable = false // true = 編集可、　false = 編集不可
     }
-
+    
     /// 決定ボタンを押した時の処理
     @IBAction func guessButton(_ sender: Any) {
         
         // 入力されたtextFieldの値を取得
         guard let playerNum: Int = Int(textField.text!) else { // playerNum: プレイヤーが入力した値（binding済み)
+            
+            //  エラーを表示
+            errorAlert()
             return
         }
         
-        // numberLabelに入力された値を入力
-        numberLabel.text = String(playerNum)
-        
-        // 正否の判定(0:正解、 1:正解より小さい、 2:正解より大きい)
-        if trueNumber == playerNum {
-            checkAnswer(id: 0, playerNum: playerNum)
-        } else if trueNumber > playerNum {
-            checkAnswer(id: 1, playerNum: playerNum)
-        } else if trueNumber < playerNum {
-            checkAnswer(id: 2, playerNum: playerNum)
-        } else {
-            return
+        // playerNumが１〜１００の間の値かどうかを判断する
+        if playerNum < 1 || playerNum > 100 { // エラー時
+            // エラーを表示
+            errorAlert()
+        } else { // 正常時
+            // numberLabelに入力された値を入力
+            numberLabel.text = String(playerNum)
+            
+            // 正否の判定(0:正解、 1:正解より小さい、 2:正解より大きい)
+            if trueNumber == playerNum {
+                checkAnswer(id: 0, playerNum: playerNum)
+            } else if trueNumber > playerNum {
+                checkAnswer(id: 1, playerNum: playerNum)
+            } else if trueNumber < playerNum {
+                checkAnswer(id: 2, playerNum: playerNum)
+            } else {
+                return
+            }
+            
+            // カウントを進める
+            count += 1
+            
+            // 入力欄の初期化
+            textField.text = ""
         }
-        
-        // カウントを進める
-        count += 1
-        
-        // 入力欄の初期化
-        textField.text = ""
-        
     }
+    
+    
+    
     
     // 入力された値と答えの値を比較する関数
     func checkAnswer(id: Int, playerNum: Int) {
@@ -81,12 +92,13 @@ class ViewController: UIViewController {
         case 2:
             // アラートを表示
             showAlert(message: "答えは\(playerNum)より小さい値です。")
-
+            
             // resultTextViewに結果を表示
             resultTextView.text += "[\(count)回目]答えは\(playerNum)より小さい値です。\n"
         default:
             break
         }
+        
     }
     
     /// 普通のアラートを表示させる処理
@@ -100,7 +112,19 @@ class ViewController: UIViewController {
         // アラートを表示する
         present(alert, animated: true, completion: nil)
     }
-
+    
+    // エラー時のアラートを表示させる処理
+    func errorAlert() {
+        // アラートの作成
+        let alert = UIAlertController(title: "エラー", message: "「１〜１００」の数字を入力してください。", preferredStyle:  .alert)
+        // アラートのアクション（ボタン部分の定義）
+        let close = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        // 作成したalertに閉じるボタンを追加
+        alert.addAction(close)
+        // アラートを表示する
+        present(alert, animated: true, completion: nil)
+    }
+    
     // 正解したらリセットする関数
     func reset() {
         // 正解の数のリセット
