@@ -27,7 +27,7 @@ class ViewController: UIViewController {
         // resultTextViewを編集不可能にする
         resultTextView.isEditable = false // true = 編集可、　false = 編集不可
     }
-
+    
     /// 決定ボタンを押した時の処理
     @IBAction func guessButton(_ sender: Any) {
         
@@ -57,23 +57,45 @@ class ViewController: UIViewController {
         textField.text = ""
         
     }
-        
+    
     // 入力された値と答えの値を比較する関数
     func checkAnswer(id: Int, playerNum: Int) {
         // 正否を判定する (0:正解、 1:正解より小さい、 2:正解より大きい)
         switch id {
         case 0:
+            // アラートを表示
+            showAlert(message: "\(count)回目で正解しました。\n数字をリセットしました。")
+            
             // resultTextViewに結果を表示
             resultTextView.text += "[正解]答えは\(trueNumber)でした。\n"
         case 1:
+            // アラートを表示
+            showAlert(message: "答えは\(playerNum)より大きい値です。")
+            
             // resultTextViewに結果を表示
             resultTextView.text += "[\(count)回目]答えは\(playerNum)より大きい値です。\n"
         case 2:
+            // アラートを表示
+            showAlert(message: "答えは\(playerNum)より小さい値です。")
+            
             // resultTextViewに結果を表示
             resultTextView.text += "[\(count)回目]答えは\(playerNum)より小さい値です。\n"
         default:
             break
         }
+        
+    }
+    
+    /// 普通のアラートを表示させる処理
+    func showAlert(message: String) {
+        // アラートの作成
+        let alert = UIAlertController(title: nil, message: message, preferredStyle:  .alert)
+        // アラートのアクション（ボタン部分の定義）
+        let close = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        // 作成したalertに閉じるボタンを追加
+        alert.addAction(close)
+        // アラートを表示する
+        present(alert, animated: true, completion: nil)
     }
 }
 
