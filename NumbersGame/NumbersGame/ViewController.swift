@@ -27,7 +27,7 @@ class ViewController: UIViewController {
         // resultTextViewを編集不可能にする
         resultTextView.isEditable = false // true = 編集可、　false = 編集不可
     }
-    
+
     /// 決定ボタンを押した時の処理
     @IBAction func guessButton(_ sender: Any) {
         
@@ -68,6 +68,10 @@ class ViewController: UIViewController {
             
             // resultTextViewに結果を表示
             resultTextView.text += "[正解]答えは\(trueNumber)でした。\n"
+            
+            // 正解時に行うリセット
+            reset()
+            
         case 1:
             // アラートを表示
             showAlert(message: "答えは\(playerNum)より大きい値です。")
@@ -77,13 +81,12 @@ class ViewController: UIViewController {
         case 2:
             // アラートを表示
             showAlert(message: "答えは\(playerNum)より小さい値です。")
-            
+
             // resultTextViewに結果を表示
             resultTextView.text += "[\(count)回目]答えは\(playerNum)より小さい値です。\n"
         default:
             break
         }
-        
     }
     
     /// 普通のアラートを表示させる処理
@@ -97,5 +100,16 @@ class ViewController: UIViewController {
         // アラートを表示する
         present(alert, animated: true, completion: nil)
     }
+
+    // 正解したらリセットする関数
+    func reset() {
+        // 正解の数のリセット
+        trueNumber = Int.random(in: 1..<100)
+        // ラベルのリセット
+        numberLabel.text = "??"
+        // カウントのリセット
+        count = 1
+    }
+    
 }
 
