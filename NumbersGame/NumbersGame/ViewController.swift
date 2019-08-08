@@ -23,9 +23,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // resultTextViewを編集不可能にする
-        resultTextView.isEditable = false // true = 編集可、　false = 編集不可
     }
     
     /// 決定ボタンを押した時の処理
