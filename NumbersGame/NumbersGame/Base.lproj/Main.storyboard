@@ -66,7 +66,6 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="m3t-0r-wBc" secondAttribute="trailing" id="l1r-wZ-1Jt"/>
                             <constraint firstItem="j41-ii-BIk" firstAttribute="top" secondItem="9Tj-ie-9Q7" secondAttribute="bottom" constant="8" id="l9u-fM-9XQ"/>
                             <constraint firstItem="lZ8-1V-0aP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vM9-OI-h5I"/>
-                            <constraint firstItem="Lyc-wM-58n" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zRF-RB-cRy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
