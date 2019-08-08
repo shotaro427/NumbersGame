@@ -33,14 +33,13 @@ class ViewController: UIViewController {
             
             //  エラーを表示
             showAlert(title: "エラーです", message: "「１〜１００」の数字を入力してください。")
+            // 入力欄の初期化
+            textField.text = String()
             return
         }
         
         // playerNumが１〜１００の間の値かどうかを判断する
-        if playerNum < 1 || playerNum > 100 { // エラー時
-            // エラーを表示
-            showAlert(title: "エラーです", message: "「１〜１００」の数字を入力してください。")
-        } else { // 正常時
+        if playerNum >= 1 && playerNum <= 100 { // 正常時
             // numberLabelに入力された値を入力
             numberLabel.text = String(playerNum)
             
@@ -57,10 +56,14 @@ class ViewController: UIViewController {
             
             // カウントを進める
             count += 1
-            
-            // 入力欄の初期化
-            textField.text = ""
+        } else { // エラー時
+            // エラーを表示
+            showAlert(title: "エラーです", message: "「１〜１００」の数字を入力してください。")
         }
+        
+        // 入力欄の初期化
+        textField.text = String()
+        
     }
     
     
@@ -117,7 +120,7 @@ class ViewController: UIViewController {
         // ラベルのリセット
         numberLabel.text = "??"
         // カウントのリセット
-        count = 1
+        count = 0
     }
     
 }
